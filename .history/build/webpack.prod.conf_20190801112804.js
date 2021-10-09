@@ -24,7 +24,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     publicPath:
-      "http://34.92.45.231/wp-content/themes/pioneer/backend_web/",
+      "http://34.92.29.165:8080/wp-content/themes/eso/esolution-web-app/",
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')

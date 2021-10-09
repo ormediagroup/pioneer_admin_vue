@@ -101,7 +101,6 @@
           style="width:250px"
           placeholder="input search text"
           enter-button
-          v-model="search_key"
           @search="onSearch"
         />
       </div>
@@ -163,7 +162,6 @@ export default {
       modalTitle: "Add Banner Image",
       img_id: 0,
       edit_index: 0,
-      search_key: "",
     };
   },
   created() {
@@ -193,8 +191,6 @@ export default {
     },
     showModal(key) {
       this.key = key;
-      this.getAllImg();
-      this.search_key = "";
       this.visible = true;
     },
     showEditModal(index, img_id, key) {
@@ -202,8 +198,6 @@ export default {
       this.img_id = img_id;
       this.key = key;
       this.edit_index = index;
-      this.getAllImg();
-      this.search_key = "";
       this.visible = true;
     },
     handleOk(e) {
@@ -271,17 +265,7 @@ export default {
       this.visible = false;
       this.selectedRowKeys = [];
     },
-    onSearch(value) {
-      if (value.trim() == "") {
-        this.$message.error("The search key is empty");
-        return;
-      }
-      search_banner(value)
-        .then((res) => {
-          this.img_arr = res.data;
-        })
-        .catch((err) => {});
-    },
+    onSearch() {},
     confirmDelete(index, key) {
       let data_str = "";
       if (key == "index") {

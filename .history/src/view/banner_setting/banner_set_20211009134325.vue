@@ -202,8 +202,6 @@ export default {
       this.img_id = img_id;
       this.key = key;
       this.edit_index = index;
-      this.getAllImg();
-      this.search_key = "";
       this.visible = true;
     },
     handleOk(e) {
