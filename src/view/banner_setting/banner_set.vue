@@ -323,5 +323,6 @@ export default {
 .banner-item {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>

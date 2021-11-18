@@ -16,6 +16,11 @@ const router = new Router({
           path:"banner_set",
           name:'banner_set',
           component:() => import("@/view/banner_setting/banner_set")
+        },
+        {
+          path:"hospital_set",
+          name:'hospital_set',
+          component:() => import("@/view/hospital_setting/hospital_set")
         }
       ]
     },

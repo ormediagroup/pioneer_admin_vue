@@ -1,11 +1,11 @@
 <template>
   <div style="height:100%">
     <a-menu style="height:5%" v-model="current" mode="horizontal">
-      <a-menu-item key="mail">
+      <a-menu-item key="mail" @click="menuChange(0)">
         <a-icon type="mail" />Banner Setting
       </a-menu-item>
-      <a-menu-item key="app">
-        <a-icon type="appstore" />Navigation Two
+      <a-menu-item key="app" @click="menuChange(1)">
+        <a-icon type="appstore" />Hospital Setting
       </a-menu-item>
       <a-sub-menu>
         <span slot="title" class="submenu-title-wrapper"
@@ -47,11 +47,20 @@ export default {
           r_name: "banner_set",
           title: "Banner Setting",
         },
+        {
+          r_name: "hospital_set",
+          title: "Hospital Setting",
+        },
       ],
     };
   },
   created() {
     this.$router.push({ name: this.menu_item[0].r_name });
+  },
+  methods: {
+    menuChange(key) {
+      this.$router.push({ name: this.menu_item[key].r_name });
+    },
   },
 };
 </script>
