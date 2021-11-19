@@ -22,12 +22,12 @@
 
     <div class="item">
       <span class="span-input">Introduction</span>
-      <a-input v-model="info.intro" />
+      <a-textarea v-model="info.intro" :rows="6" />
     </div>
 
     <div class="item">
       <span class="span-input">Image</span><br />
-      <img style="width:120px;margin:10px 0" :src="url" /><br />
+      <img style="width:120px;margin:10px 0" :src="info.img_url" /><br />
       <a-button type="default" @click="openImageModal"
         >Change Hospital Img</a-button
       >
@@ -41,12 +41,11 @@
 
 <script>
 import ImageModal from "@/components/imageModal.vue";
-import { add_hospital } from "@/api/hospital.js";
+import { add_hospital, edit_hospital } from "@/api/hospital.js";
 export default {
   data() {
     return {
-      modalTitle: "Add Hospital Info",
-      btnTitle: "+ Add",
+      btnTitle: "",
       modalVisible: false,
       confirmLoading: false,
       info: {
@@ -54,17 +53,33 @@ export default {
         tel: "",
         addr: "",
         intro: "",
-        img: 652,
+        image: 652,
+        img_url: require("@/assets/seek_hospital.png"),
         rate: 0,
       },
-      url: "http://34.92.45.231/wp-content/uploads/2021/11/seek_hospital.png",
     };
   },
-  created() {},
+  created() {
+    if (this.modalTitle == "Add Hospital Info") {
+      this.btnTitle = "+ Add";
+    } else {
+      this.btnTitle = "Edit";
+    }
+  },
   components: { ImageModal },
+  props: {
+    modalTitle: {
+      type: String,
+      default: "Add Hospital Info",
+    },
+  },
   methods: {
     showModal() {
       this.modalVisible = true;
+    },
+    editModal(data) {
+      this.modalVisible = true;
+      this.info = data;
     },
     onClose() {
       this.modalVisible = false;
@@ -74,17 +89,27 @@ export default {
     },
     get_img_id(img_info) {
       console.log(img_info);
-      this.info.img = img_info.id;
-      this.url = img_info.img;
+      this.info.image = img_info.id;
+      this.info.img_url = img_info.img;
     },
     addHoapital() {
-      add_hospital(this.info)
-        .then((res) => {
-          if (res.rc == 1) {
-            this.$message.success("Add Success");
-          }
-        })
-        .catch((err) => {});
+      if (this.btnTitle == "+ Add") {
+        add_hospital(this.info)
+          .then((res) => {
+            if (res.rc == 1) {
+              this.$message.success("Add Success");
+            }
+          })
+          .catch((err) => {});
+      } else {
+        edit_hospital(this.info)
+          .then((res) => {
+            if (res.rc == 1) {
+              this.$message.success("Edit Success");
+            }
+          })
+          .catch((err) => {});
+      }
     },
   },
 };

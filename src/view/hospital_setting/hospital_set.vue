@@ -13,20 +13,22 @@
           <img :src="data.img_url" style="height:100px" />
         </div>
       </template>
-      <template slot="action">
+      <template slot="action" slot-scope="data">
         <div>
-          <a-icon theme="twoTone" type="edit" />
+          <a-icon theme="twoTone" type="edit" @click="editHospital(data)" />
           <a-icon theme="twoTone" type="delete" />
         </div>
       </template>
     </a-table>
     <AddHospital ref="hospitalModal" />
+    <EditHospital ref="editHospitalInfo" :modalTitle="'Edit Hospital Info'" />
   </div>
 </template>
 
 <script>
-import { get_all_hospital } from "@/api/hospital.js";
+import { get_all_hospital, del_hospital } from "@/api/hospital.js";
 import AddHospital from "./add_hospital.vue";
+import EditHospital from "./add_hospital.vue";
 const columns = [
   {
     title: "ID",
@@ -84,7 +86,7 @@ export default {
   created() {
     this.getAllHospital();
   },
-  components: { AddHospital },
+  components: { AddHospital, EditHospital },
   methods: {
     getAllHospital() {
       get_all_hospital()
@@ -97,6 +99,21 @@ export default {
     },
     openModal(key) {
       this.$refs.hospitalModal.showModal();
+    },
+    editHospital(data) {
+      this.$refs.editHospitalInfo.editModal(data);
+    },
+    delHospital(data) {
+      del_hospital(data)
+        .then((res) => {
+          if (res.rc == 1) {
+            this.$message.success("Delete Success");
+            this.getAllHospital();
+          } else {
+            this.$message.error("Delete Fail");
+          }
+        })
+        .catch((err) => {});
     },
   },
 };
