@@ -16,7 +16,15 @@
       <template slot="action" slot-scope="data">
         <div>
           <a-icon theme="twoTone" type="edit" @click="editHospital(data)" />
-          <a-icon theme="twoTone" type="delete" />
+          <a-popconfirm
+            title="Are you sure delete this task?"
+            ok-text="Yes"
+            cancel-text="No"
+            @confirm="confirmDelete(data)"
+            @cancel="cancel"
+          >
+            <a-icon theme="twoTone" type="delete" />
+          </a-popconfirm>
         </div>
       </template>
     </a-table>
@@ -114,6 +122,13 @@ export default {
           }
         })
         .catch((err) => {});
+    },
+    confirmDelete(data) {
+      this.delHospital(data);
+    },
+    cancel(e) {
+      console.log(e);
+      this.$message.error("Click on No");
     },
   },
 };

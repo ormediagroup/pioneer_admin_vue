@@ -32,7 +32,7 @@ export function edit_hospital(data){
 
 export function del_hospital(data){
     return request({
-        url: "api-server?c=Hospital&a=edit_hospital",
+        url: "api-server?c=Hospital&a=del_hospital",
         method: "POST",
         data: Qs.stringify({
             ...data

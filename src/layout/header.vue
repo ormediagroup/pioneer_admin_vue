@@ -7,7 +7,7 @@
       <a-menu-item key="app" @click="menuChange(1)">
         <a-icon type="appstore" />Hospital Setting
       </a-menu-item>
-      <a-sub-menu>
+      <!-- <a-sub-menu>
         <span slot="title" class="submenu-title-wrapper"
           ><a-icon type="setting" />Navigation Three - Submenu</span
         >
@@ -30,7 +30,7 @@
       </a-sub-menu>
       <a-menu-item key="alipay">
         <a-icon type="appstore" />Navigation Four
-      </a-menu-item>
+      </a-menu-item> -->
     </a-menu>
     <div class="main">
       <router-view></router-view>
@@ -69,5 +69,6 @@ export default {
   padding: 30px;
   background-color: #f1f1f1;
   height: 95%;
+  overflow-y: scroll;
 }
 </style>
