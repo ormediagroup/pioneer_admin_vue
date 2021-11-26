@@ -192,6 +192,7 @@ export default {
         .catch((error) => {});
     },
     showModal(key) {
+      this.modalTitle = "Add Banner Image";
       this.key = key;
       this.getAllImg();
       this.search_key = "";
